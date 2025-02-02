@@ -1,3 +1,4 @@
+streamlit
 google-generativeai
 python-dotenv
 os
@@ -13,3 +14,4 @@ pandas
 opencv-python
 matplotlib
 nltk
+tesseract
