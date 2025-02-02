@@ -102,21 +102,34 @@ def chatbot(file_path):
     return questions, answers
 
 def main():
-    st.title("Quiz Generator Chatbot")
-    st.write("Upload a document to generate a quiz.")
+    st.title("Quizzard: Powered by YOUR notes!")
+    st.write("Upload one or more documents to generate quizzes.")
     
-    uploaded_file = st.file_uploader("Choose a PDF, DOCX, or PPTX file", type=["pdf", "docx", "pptx"])
+    uploaded_files = st.file_uploader("Choose PDF, DOCX, or PPTX files", type=["pdf", "docx", "pptx"], accept_multiple_files=True)
     
-    if uploaded_file is not None:
-        with open("temp_file", "wb") as f:
-            f.write(uploaded_file.getbuffer())
+    if uploaded_files:
+        all_text = ""
+        for uploaded_file in uploaded_files:
+            with open(f"temp_file_{uploaded_file.name}", "wb") as f:
+                f.write(uploaded_file.getbuffer())
+            
+            # Process each uploaded file
+            questions, answers = chatbot(f"temp_file_{uploaded_file.name}")
+            
+            if questions:
+                all_text += f"\n\n=== {uploaded_file.name} ==="
+                question_list = list(questions.items())
+                for question, data in question_list:
+                    all_text += f"\n{data['question']}\n"
+                    for option, answer in data['options'].items():
+                        all_text += f"{option}) {answer}\n"
+                
+        st.text_area("Generated Quiz Content", all_text, height=400)
         
-        questions, answers = chatbot("temp_file")
-        
-        if questions:
-            st.write("Quiz generated successfully! Start answering the questions.")
-            question_list = list(questions.items())
-            question_index = st.session_state.get("question_index", 0)
+        # Manage questions and answers for quiz
+        question_list = list(questions.items())
+        question_index = st.session_state.get("question_index", 0)
+        if question_index < len(question_list):
             current_question, current_data = question_list[question_index]
             
             st.subheader(current_data["question"])
@@ -129,7 +142,9 @@ def main():
                 st.write("Your answers:")
                 st.write(st.session_state)
         else:
-            st.write("Unable to generate quiz.")
+            st.write("Quiz completed!")
+    else:
+        st.write("Please upload a file.")
 
 if __name__ == "__main__":
     if "question_index" not in st.session_state:
