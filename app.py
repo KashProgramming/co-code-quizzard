@@ -2,16 +2,11 @@ import streamlit as st
 import re
 import os
 import google.generativeai as genai
-from dotenv import load_dotenv
 from file_handler.docx_handler import extract_docx_content
 from file_handler.ppt_handler import extract_pptx_content
 from file_handler.pdf_handler import extract_pdf_content
 
-load_dotenv()
-api_key = os.getenv("GEMINI_API_KEY")
-if api_key is None:
-    raise ValueError("API key is not set in the .env file")
-genai.configure(api_key=api_key)
+genai.configure(api_key="GEMINI_API_KEY")
 
 def extract_content(file_path):
     """Extracts text from a given document based on its file type."""
