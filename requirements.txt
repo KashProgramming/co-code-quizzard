@@ -1,7 +1,6 @@
 streamlit
 google-generativeai
 python-dotenv
-os
 transformers
 torch
 PyMuPDF
@@ -9,9 +8,10 @@ python-docx
 python-pptx
 pytesseract
 pillow
-camelot-py[cv]
+camelot-py
 pandas
 opencv-python
 matplotlib
 nltk
 tesseract
+uvicorn
