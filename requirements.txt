@@ -1,6 +1,5 @@
 google-generativeai
 python-dotenv
-re
 os
 transformers
 torch
@@ -12,7 +11,5 @@ pillow
 camelot-py[cv]
 pandas
 opencv-python
-tensorflow
-glob2
 matplotlib
 nltk
