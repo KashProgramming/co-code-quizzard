@@ -3,3 +3,17 @@ google-generativeai==0.1.0
 python-dotenv==0.21.0
 re
 os
+transformers
+torch
+PyMuPDF
+python-docx
+python-pptx
+pytesseract
+pillow
+camelot-py[cv]
+pandas
+opencv-python
+tensorflow
+glob2
+matplotlib
+nltk
